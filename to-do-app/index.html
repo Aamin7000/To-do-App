@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="todo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+<body>
+    <div class="container">
+            <div class="box">
+                <h2>To-Do List <img src="images/icon.png" alt=""></h2>
+                <div class="box2">
+                <input type="text" placeholder="Add Your Task " id="input" class="in">
+                <button onclick="addtask();">Add</button>
+                </div>
+
+                <ul id="list">
+                    <!-- <li class="ch">task 1</li>
+                    <li>task 2</li>
+                    <li>task 3</li> -->
+                </ul>
+            </div>
+    </div>
+    <script>
+        const input=document.querySelector("#input");
+        const list=document.querySelector("#list");
+
+        addtask=()=>{
+            if(input.value.trim() === ""){
+                alert("You Must have Wright Soemthing!");
+            }
+            else{
+                let li=document.createElement("li");
+                li.innerHTML=input.value;
+                list.appendChild(li);
+                let span=document.createElement("span");
+                span.innerHTML="\u00d7";
+                li.appendChild(span);
+            }
+
+            input.value="";
+            save();
+        }
+        list.addEventListener("click",(e)=>{
+                if(e.target.tagName==="LI"){
+                    e.target.classList.toggle("ch");
+                }
+                else if(e.target.tagName==="SPAN"){
+                        e.target.parentElement.remove();
+                        save();
+                }
+        },false);
+
+        save=()=>{
+            localStorage.setItem("data",list.innerHTML);
+         }
+         showtask=()=>{
+            list.innerHTML =localStorage.getItem("data");
+         }
+         showtask();
+    </script>
+</body>
+</html>
